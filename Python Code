@@ -1,1 +1,90 @@
+import random
+
+#------------------------------set up------------------------------
+games = ["Super Mario", "Pokemon", "Legend of Zelda", "Call of Duty", "Street Fighter"]
+gameChoice = random.choice(games).lower()
+
+guessList = []
+for _ in gameChoice:
+    guessList += "_"
+lives = 6
+stages = ['''
+  +---+
+  |   |
+  O   |
+ /|\  |
+ / \  |
+      |
+=========
+''', '''
+  +---+
+  |   |
+  O   |
+ /|\  |
+ /    |
+      |
+=========
+''', '''
+  +---+
+  |   |
+  O   |
+ /|\  |
+      |
+      |
+=========
+''', '''
+  +---+
+  |   |
+  O   |
+ /|   |
+      |
+      |
+=========''', '''
+  +---+
+  |   |
+  O   |
+  |   |
+      |
+      |
+=========
+''', '''
+  +---+
+  |   |
+  O   |
+      |
+      |
+      |
+=========
+''', '''
+  +---+
+  |   |
+      |
+      |
+      |
+      |
+=========
+''']
+
+#------------------------------functionality ------------------------------
+endOfGame = False
+while not endOfGame:
+    guess = input("letter? ")
+    found_match = False  # Flag to track if a match is found in the current guess
+    for position in range(len(gameChoice)):
+        letter = gameChoice[position]
+        if letter == guess:
+            guessList[position] = letter
+            found_match = True  # Set the flag to True if a match is found
+    if not found_match:
+        lives -= 1  # Decrement lives only if no match is found in the entire word
+    print(guessList)
+    print(lives)
+
+    print(stages[lives])
+    if "_" not in guessList:
+        endOfGame = True
+        print("You win.")
+    elif lives == 0:
+        endOfGame = True
+        print("You lose.")
 
